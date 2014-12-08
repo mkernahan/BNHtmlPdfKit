@@ -5,7 +5,7 @@
 //  Copyright (c) 2013 Brent Nycum. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @protocol BNHtmlPdfKitDelegate;
 
