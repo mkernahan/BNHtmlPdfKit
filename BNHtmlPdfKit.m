@@ -170,53 +170,33 @@ static float const PPI = 72.0f;
 
 #pragma mark - Initializers
 
-- (id)init {
-	if (self = [super init]) {
-		self.pageSize = [BNHtmlPdfKit defaultPageSize];
-		self.landscape = NO;
+- (id)initWithPageSize:(BNPageSize)pageSize customPageSize:(CGSize)customPageSize isLandscape:(BOOL)landscape {
+    if (self = [super init]) {
+        self.pageSize = pageSize;
+        self.customPageSize = customPageSize;
+        self.landscape = landscape;
+        
+        // Default 1/4" margins
+        self.topAndBottomMarginSize = 0.25f * PPI;
+        self.leftAndRightMarginSize = 0.25f * PPI;
+    }
+    return self;
+}
 
-		// Default 1/4" margins
-		self.topAndBottomMarginSize = 0.25f * PPI;
-		self.leftAndRightMarginSize = 0.25f * PPI;
-	}
-	return self;
+- (id)init {
+    return [self initWithPageSize:[BNHtmlPdfKit defaultPageSize] customPageSize:CGSizeZero isLandscape:NO];
 }
 
 - (id)initWithPageSize:(BNPageSize)pageSize {
-	if (self = [super init]) {
-		self.pageSize = pageSize;
-		self.landscape = NO;
-
-		// Default 1/4" margins
-		self.topAndBottomMarginSize = 0.25f * PPI;
-		self.leftAndRightMarginSize = 0.25f * PPI;
-	}
-	return self;
+    return [self initWithPageSize:pageSize customPageSize:CGSizeZero isLandscape:NO];
 }
 
 - (id)initWithPageSize:(BNPageSize)pageSize isLandscape:(BOOL)landscape {
-	if (self = [super init]) {
-		self.pageSize = pageSize;
-		self.landscape = landscape;
-
-		// Default 1/4" margins
-		self.topAndBottomMarginSize = 0.25f * PPI;
-		self.leftAndRightMarginSize = 0.25f * PPI;
-	}
-	return self;
+    return [self initWithPageSize:pageSize customPageSize:CGSizeZero isLandscape:landscape];
 }
 
 - (id)initWithCustomPageSize:(CGSize)pageSize {
-	if (self = [super init]) {
-		self.pageSize = BNPageSizeCustom;
-		self.customPageSize = pageSize;
-		self.landscape = NO;
-
-		// Default 1/4" margins
-		self.topAndBottomMarginSize = 0.25f * PPI;
-		self.leftAndRightMarginSize = 0.25f * PPI;
-	}
-	return self;
+    return [self initWithPageSize:BNPageSizeCustom customPageSize:pageSize isLandscape:NO];
 }
 
 - (void)dealloc {
